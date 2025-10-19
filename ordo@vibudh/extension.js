@@ -75,9 +75,11 @@ export default class OrdoExtension extends Extension {
         // --- Restore native titlebar buttons ---
         if (this._settings && this._previousLayout !== undefined) {
             this._settings.set_string('button-layout', this._previousLayout);
-            this._settings = null;
             this._previousLayout = null;
         }
+        
+        // Always null out _settings
+        this._settings = null;
 
         // --- Destroy all individual buttons ---
         if (this._buttons && this._buttons.length > 0) {
