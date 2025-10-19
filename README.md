@@ -13,6 +13,8 @@
 * Buttons affect the **currently focused window**.
 * Works with tiling extensions such as **Forge** or **Material Shell**.
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0952e399-3994-4ea5-8a22-6c62319cc81b" />
+
 ---
 
 ## Motivation
