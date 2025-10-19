@@ -79,11 +79,22 @@ export default class OrdoExtension extends Extension {
             this._previousLayout = null;
         }
 
-        // --- Remove Ordo panel buttons ---
+        // --- Destroy all individual buttons ---
+        if (this._buttons && this._buttons.length > 0) {
+            this._buttons.forEach((btn) => {
+                if (btn && !btn.destroyed) {
+                    btn.destroy();
+                }
+            });
+            this._buttons = null;
+        }
+
+        // --- Destroy the panel container ---
         if (this._panelBtn) {
             this._panelBtn.destroy();
             this._panelBtn = null;
         }
     }
 }
+
 
