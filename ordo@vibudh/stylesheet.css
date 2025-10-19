@@ -1,0 +1,28 @@
+/* --- Container for all Ordo buttons --- */
+.ordo-panel-button-box {
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+}
+
+/* --- Individual tiny buttons --- */
+.ordo-tiny-button {
+    min-width: 24px;
+    min-height: 24px;
+    margin: 0;
+    padding: 0;
+    border-radius: 2px;           /* small corner rounding */
+    background-color: transparent;
+    transition: background-color 0.1s ease;
+}
+
+/* --- Hover effect --- */
+.ordo-tiny-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Icons inside buttons --- */
+.ordo-tiny-button .system-status-icon {
+    icon-size: 16px;
+}
+

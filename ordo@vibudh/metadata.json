@@ -1,0 +1,8 @@
+{
+    "uuid": "ordo@vibudh",
+    "name": "Ordo",
+    "description": "Streamlines window controls with a clean top-panel interface",
+    "shell-version": ["48"],
+    "url": "https://github.com/vibudh/window-buttons"
+}
+
