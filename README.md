@@ -9,9 +9,9 @@
 ## Features
 
 * Adds **minimize**, **maximize**, and **close** buttons to the **top-right corner** of the GNOME panel.
-* Hides the native titlebar buttons while the extension is active.
+* Hides native titlebar buttons while active.
 * Buttons affect the **currently focused window**.
-* Works with tiling extensions such as **Forge** or **Material Shell**.
+* Compatible with tiling extensions like **Forge** or **Material Shell**.
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0952e399-3994-4ea5-8a22-6c62319cc81b" />
 
@@ -19,37 +19,26 @@
 
 ## Motivation
 
-Each window’s titlebar normally includes its own set of control buttons, which can feel redundant.
-**Ordo** replaces them with a single global set on the top panel to reduce repetition and save space.
+Instead of each window having its own set of buttons, **Ordo** provides a single global set on the top panel to reduce redundancy and save screen space.
 
 ---
 
 ## Installation
 
-### Manual installation
+Download and install **Ordo** directly from GNOME Extensions:
 
-1. Clone this repository:
+[Ordo on GNOME Extensions](https://extensions.gnome.org/extension/8686/ordo/)
 
-   ```bash
-   git clone https://github.com/vibudh007/Ordo.git ~/.local/share/gnome-shell/extensions/ordo@vibudh
-   ```
-2. Restart GNOME Shell
-
-   * On X11: press `Alt + F2`, type `r`, and press Enter.
-   * On Wayland: log out and back in.
-3. Enable the extension:
-
-   ```bash
-   gnome-extensions enable ordo@vibudh
-   ```
+* Use the toggle on the website to enable the extension.
+* GNOME Shell will automatically hide native titlebar buttons while active.
 
 ---
 
 ## Usage
 
-* Buttons appear at the top-right of the GNOME panel.
+* Buttons appear at the **top-right of the GNOME panel**.
 * Click **Minimize**, **Maximize**, or **Close** to control the focused window.
-* Disabling the extension restores the native titlebar buttons.
+* Disabling the extension restores native titlebar buttons.
 
 ---
 
