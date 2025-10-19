@@ -1,1 +1,1 @@
-# ordo-vbudh
+GNOME Shell extension for unified window buttons
