@@ -3,6 +3,7 @@ import Meta from 'gi://Meta';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import Gio from 'gi://Gio';
+import { WindowManager } from './utils/window-manager.js';
 
 export default class OrdoExtension extends Extension {
     enable() {
@@ -46,39 +47,17 @@ export default class OrdoExtension extends Extension {
 
             btn.connect('clicked', () => {
                 const window = this._focusedWindow;
-                console.log(`[Ordo] "${data.name}" clicked, focused window: ${window?.get_title()}`);
                 if (!window) return;
 
                 switch (data.name) {
                     case 'Minimize':
-                        console.log('[Ordo] Calling minimize()');
                         window.minimize();
                         break;
-                    case 'Maximize': {
-                        console.log('[Ordo] window wm_class:', window.get_wm_class?.());
-                        try {
-                            const currentState = window.get_maximized();
-                            // On GNOME 47+, is_maximized is a property, not a function,
-                            // and maximize()/unmaximize() no longer take MaximizeFlags params.
-                            const hasNewApi = 'is_maximized' in window && typeof window.is_maximized !== 'function';
-                            console.log('[Ordo] get_maximized():', currentState, '| Meta.MaximizeFlags.BOTH:', Meta.MaximizeFlags.BOTH);
-                            console.log('[Ordo] hasNewApi (no flags needed):', hasNewApi);
-                            console.log('[Ordo] can_maximize():', window.can_maximize());
-                            if (currentState === Meta.MaximizeFlags.BOTH) {
-                                console.log('[Ordo] Already maximized, calling unmaximize()');
-                                hasNewApi ? window.unmaximize() : window.unmaximize(Meta.MaximizeFlags.BOTH);
-                            } else {
-                                console.log('[Ordo] Not maximized, calling maximize()');
-                                hasNewApi ? window.maximize() : window.maximize(Meta.MaximizeFlags.BOTH);
-                            }
-                            console.log('[Ordo] get_maximized() after call:', window.get_maximized());
-                        } catch (e) {
-                            console.log('[Ordo] ERROR in maximize:', e.message, e.stack);
-                        }
+                    case 'Maximize':
+                        const windowManager = new WindowManager();
+                        windowManager.maximize(window);
                         break;
-                    }
                     case 'Close':
-                        console.log('[Ordo] Calling delete()');
                         window.delete(global.get_current_time());
                         break;
                 }
