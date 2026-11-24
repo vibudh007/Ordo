@@ -3,12 +3,19 @@ import Meta from 'gi://Meta';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import Gio from 'gi://Gio';
+import { WindowManager } from './utils/window-manager.js';
 
 export default class OrdoExtension extends Extension {
     enable() {
+        // --- Track the last focused window so panel clicks don't lose it ---
+        this._focusedWindow = global.display.get_focus_window();
+        this._focusSignal = global.display.connect('notify::focus-window', () => {
+            const win = global.display.get_focus_window();
+            if (win) this._focusedWindow = win;
+        });
+
         // --- Panel container for buttons ---
         this._panelBtn = new St.BoxLayout({
-            vertical: false,
             style_class: 'ordo-panel-button-box',
             reactive: true,
             track_hover: true
@@ -39,7 +46,7 @@ export default class OrdoExtension extends Extension {
             btn.add_child(icon);
 
             btn.connect('clicked', () => {
-                const window = global.display.get_focus_window();
+                const window = this._focusedWindow;
                 if (!window) return;
 
                 switch (data.name) {
@@ -47,10 +54,8 @@ export default class OrdoExtension extends Extension {
                         window.minimize();
                         break;
                     case 'Maximize':
-                        if (window.get_maximized() === Meta.MaximizeFlags.BOTH)
-                            window.unmaximize(Meta.MaximizeFlags.BOTH);
-                        else
-                            window.maximize(Meta.MaximizeFlags.BOTH);
+                        const windowManager = new WindowManager();
+                        windowManager.maximize(window);
                         break;
                     case 'Close':
                         window.delete(global.get_current_time());
@@ -72,13 +77,18 @@ export default class OrdoExtension extends Extension {
     }
 
     disable() {
+        // --- Disconnect focus tracking ---
+        if (this._focusSignal) {
+            global.display.disconnect(this._focusSignal);
+            this._focusSignal = null;
+        }
+        this._focusedWindow = null;
+
         // --- Restore native titlebar buttons ---
         if (this._settings && this._previousLayout !== undefined) {
             this._settings.set_string('button-layout', this._previousLayout);
             this._previousLayout = null;
         }
-        
-        // Always null out _settings
         this._settings = null;
 
         // --- Destroy all individual buttons ---
@@ -98,5 +108,3 @@ export default class OrdoExtension extends Extension {
         }
     }
 }
-
-

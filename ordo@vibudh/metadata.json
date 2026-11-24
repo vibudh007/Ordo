@@ -2,7 +2,7 @@
     "uuid": "ordo@vibudh",
     "name": "Ordo",
     "description": "Moves window management buttons (minimize, maximize, close) from individual window titlebars to a unified location on the top panel",
-    "shell-version": ["48"],
+    "shell-version": ["48", "51"],
     "url": "https://github.com/vibudh007/Ordo",
     "version": 1.01
 }
